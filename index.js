@@ -10,9 +10,12 @@ const User = require("./model/user");
 const myModule = require("./modules/messege");
 
 app.use(cors());
-app.use(userExtractor);
 app.use(errorHandler);
 const server = http.createServer(app);
+
+app.get("/", async(req,res)=>{
+  res.send("<h1>Hello there</h1>")
+})
 
 const io = new Server(server, {
   cors: {
@@ -31,9 +34,10 @@ io.on("connection", async (socket) => {
 
   socket.on("send_message", async (data) => {
     const user = await User.findById(data.userId);
+    console.log(data);
 
-    const chatRoomId = data.chatRoomId;
-    const messegeSent = data.message.message;
+    const chatRoomId = data.id;
+    const messegeSent = data.newMessage.message;
     console.log(chatRoomId, messegeSent);
     // Saving messege
     const messege = await myModule.addingMessegeInChatRoom(

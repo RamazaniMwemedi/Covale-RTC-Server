@@ -5,7 +5,10 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "deploy": "git push heroku master",
+    "deploy:full": "git add . && git commit -m'Deploy' && git push && npm run deploy",
+    "logs:prod": "heroku logs --tail"
   },
   "dependencies": {
     "@socket.io/admin-ui": "^0.4.0",
