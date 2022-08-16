@@ -19,7 +19,7 @@ app.get("/", async(req,res)=>{
 
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "https://admin.socket.io"],
+    origin: ["http://localhost:3000", "https://admin.socket.io","https://covalnt.vercel.app"],
     methods: ["GET", "POST"],
   },
 });
