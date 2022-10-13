@@ -2,7 +2,6 @@ const Chat = require("../model/chat");
 const Messege = require("../model/message");
 // For cheking if users are friends
 
-
 const addingMessegeInChat = async (user, friend, chatRoomId, messege) => {
   const newMessege = new Messege({
     sender: user._id,
@@ -35,11 +34,7 @@ const addingMessegeInChatRoom = async (user, chatRoomId, messege) => {
   return newMessege;
 };
 
-
-
 module.exports = {
-  checkIfFriends,
-  findChatRoomForFriends,
   addingMessegeInChat,
   addingMessegeInChatRoom,
 };
