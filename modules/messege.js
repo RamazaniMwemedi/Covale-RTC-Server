@@ -19,11 +19,17 @@ const addingMessegeInChat = async (user, friend, chatRoomId, messege) => {
   return newMessege;
 };
 
-const addingMessegeInChatRoom = async (user, chatRoomId, messege) => {
+const addingMessegeInChatRoom = async (
+  user,
+  chatRoomId,
+  messege,
+  idFromClient
+) => {
   const newMessege = new Messege({
     sender: user._id,
     message: messege,
     chatRoom: chatRoomId,
+    idFromClient: idFromClient,
   });
 
   const chatRoom = await Chat.findById(chatRoomId);

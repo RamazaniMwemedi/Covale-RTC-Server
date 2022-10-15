@@ -17,6 +17,7 @@ const chatSchema = mongoose.Schema({
       ref: "Message",
     },
   ],
+  
   createdBY: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

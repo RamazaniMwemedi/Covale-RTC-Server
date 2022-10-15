@@ -14,12 +14,13 @@ const chatMessageHandler = (socket) => {
 
     const chatRoomId = data.id;
     const messegeSent = data.newMessage.message;
-    console.log(chatRoomId, messegeSent);
+    const idFromClient = data.newMessage.idFromClient;
+    console.log(chatRoomId, messegeSent, idFromClient);
     // Saving messege
     const messege = await myModule.addingMessegeInChatRoom(
       user,
       chatRoomId,
-      messegeSent
+      messegeSent,idFromClient
     );
     console.log(messege);
     // // Return the messege to the client

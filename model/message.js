@@ -20,6 +20,9 @@ const messageSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  idFromClient: {
+    type: String,
+  },
   message: {
     type: String,
     required: true,
