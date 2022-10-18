@@ -16,18 +16,20 @@ const teamMessageSchema = mongoose.Schema({
     ref: "User",
     required: true,
   },
-
+  idFromClient: {
+    type: String,
+  },
   message: {
     type: String,
     required: true,
   },
-  video: [
+  videos: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Video",
     },
   ],
-  photo: [
+  photos: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Photo",

@@ -2,7 +2,7 @@ const User = require("../model/user");
 const myModule = require("../modules/messege");
 
 const chatMessageHandler = (socket) => {
-  console.log(`User Connected HANDLER: ${socket.id}`);
+  console.log(`User Connected to Chat : ${socket.id}`);
   socket.on("join_room", (data) => {
     socket.join(data);
   });

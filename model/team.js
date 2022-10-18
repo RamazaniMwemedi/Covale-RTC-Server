@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { USER_URI } = require("../utils/config");
+const { USER_URI } = require("../config/index");
 
 mongoose
   .connect(USER_URI)

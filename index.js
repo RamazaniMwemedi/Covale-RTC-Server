@@ -6,8 +6,8 @@ const { instrument } = require("@socket.io/admin-ui");
 const cors = require("cors");
 const { errorHandler, userExtractor } = require("./middleware/index");
 
-
 const { chatMessageHandler } = require("./controllers/chat");
+const { teamMessageHandler } = require("./controllers/team");
 
 app.use(cors());
 app.use(errorHandler);
@@ -30,7 +30,11 @@ const io = new Server(server, {
 
 // Messaging system
 io.on("connection", async (socket) => {
+  // Chat
   chatMessageHandler(socket);
+
+  // Team
+  teamMessageHandler(socket);
 });
 
 instrument(io, {
