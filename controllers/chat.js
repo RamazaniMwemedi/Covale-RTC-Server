@@ -20,7 +20,8 @@ const chatMessageHandler = (socket) => {
     const messege = await myModule.addingMessegeInChatRoom(
       user,
       chatRoomId,
-      messegeSent,idFromClient
+      messegeSent,
+      idFromClient
     );
     console.log(messege);
     // // Return the messege to the client
