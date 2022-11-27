@@ -1,23 +1,12 @@
-const express = require("express");
-const app = express();
-const http = require("http");
 const { Server } = require("socket.io");
 const { instrument } = require("@socket.io/admin-ui");
-const cors = require("cors");
-const { errorHandler, userExtractor } = require("./middleware/index");
+const { errorHandler } = require("./middleware/index");
+const PORT = process.env.PORT || 3001;
 
 const { chatMessageHandler } = require("./controllers/chat");
 const { teamMessageHandler } = require("./controllers/team");
 
-app.use(cors());
-app.use(errorHandler);
-const server = http.createServer(app);
-
-app.get("/", async (req, res) => {
-  res.send("<h1>Hello there</h1>");
-});
-
-const io = new Server(server, {
+const io = new Server({
   cors: {
     origin: [
       "http://localhost:3000",
@@ -28,21 +17,21 @@ const io = new Server(server, {
   },
 });
 
-// Messaging system
-io.on("connection", async (socket) => {
-  // Chat
-  chatMessageHandler(socket);
+const chatNamespace = io.of("/chat");
+const teamNameSpace = io.of("team");
 
-  // Team
+chatNamespace.on("connection", async (socket) => {
+  chatMessageHandler(socket);
+});
+
+teamNameSpace.on("connection", async (socket) => {
   teamMessageHandler(socket);
 });
 
-instrument(io, {
-  auth: false,
-});
+module.exports = {
+  chatNamespace,
+};
 
-const PORT = process.env.PORT || 3001;
-
-server.listen(PORT, () => {
+io.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
