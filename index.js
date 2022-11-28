@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 3001;
 const { chatMessageHandler } = require("./controllers/chat");
 const { teamMessageHandler } = require("./controllers/team");
 
+// IO instance
 const io = new Server({
   cors: {
     origin: [
@@ -17,8 +18,10 @@ const io = new Server({
   },
 });
 
+// NameSpaces
 const chatNamespace = io.of("/chat");
 const teamNameSpace = io.of("team");
+
 
 chatNamespace.on("connection", async (socket) => {
   chatMessageHandler(socket);
