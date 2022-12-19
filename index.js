@@ -7,21 +7,21 @@ const { chatMessageHandler } = require("./controllers/chat");
 const { teamMessageHandler } = require("./controllers/team");
 
 // IO instance
-const io = new Server({
+const io = new Server(PORT, {
   cors: {
     origin: [
       "http://localhost:3000",
       "https://admin.socket.io",
       "https://coval.vercel.app",
     ],
+    credentials: true,
     methods: ["GET", "POST"],
   },
 });
 
 // NameSpaces
 const chatNamespace = io.of("/chat");
-const teamNameSpace = io.of("team");
-
+const teamNameSpace = io.of("/team");
 
 chatNamespace.on("connection", async (socket) => {
   chatMessageHandler(socket);
@@ -31,10 +31,8 @@ teamNameSpace.on("connection", async (socket) => {
   teamMessageHandler(socket);
 });
 
-module.exports = {
-  chatNamespace,
-};
-
-io.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+instrument(io, {
+  auth: false,
+  mode: "development",
 });
+
