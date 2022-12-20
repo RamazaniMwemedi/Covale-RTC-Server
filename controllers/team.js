@@ -9,26 +9,41 @@ const teamMessageHandler = (socket) => {
   });
 
   socket.on("send_message_to_team", async (data) => {
-    console.log("data  from client");
-    console.log(data);
-    const user = await User.findById(data.userId);
+    let message = {};
+    const Sender = await User.findById(data.userId);
 
     const teamRoomId = data.id;
     const messegeSent = data.teamNewMessage.message;
     const idFromClient = data.teamNewMessage.idFromClient;
     console.log(teamRoomId, messegeSent);
     // Saving messege
-    const messege = await sendMessagetoTeam(
-      user,
+    const messageFromDB = await sendMessagetoTeam(
+      Sender,
       teamRoomId,
       messegeSent,
       idFromClient
     );
-    console.log(messege);
+    message = {
+      id: messageFromDB._id,
+      idFromClient: messageFromDB.idFromClient,
+      sender: {
+        username: Sender.username,
+        firstname: Sender.firstname,
+        lastname: Sender.lastname,
+        id: Sender._id,
+      },
+      message: messageFromDB.message,
+      videos: messageFromDB.videos,
+      photos: messageFromDB.photos,
+      teamRoom: messageFromDB.teamRoom,
+      sentAt: messageFromDB.sentAt,
+    };
+    console.log("Messege from DB");
+    console.log(message);
     // // Return the messege to the client
-    socket.emit("messege_sent_to_team", messege);
+    socket.emit("messege_sent_to_team", message);
 
-    socket.to(data.id).emit("receive_message_to_team", messege);
+    socket.to(data.id).emit("receive_message_to_team", message);
   });
   // New messege
   socket.on("new_message_to_team", (data) => {
