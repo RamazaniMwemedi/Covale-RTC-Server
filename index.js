@@ -14,6 +14,7 @@ const io = new Server(PORT, {
       "http://localhost:3000",
       "https://admin.socket.io",
       "https://coval.vercel.app",
+      "http://192.168.137.218:3000",
     ],
     credentials: true,
     methods: ["GET", "POST"],
