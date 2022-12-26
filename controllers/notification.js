@@ -14,10 +14,9 @@ const notificationHandler = (socket) => {
 
   //  send a new notification
   socket.on("send_notification", async (data) => {
-    const notification = await createNotification(data);
-    console.log("Notification :", notification);
+    console.log("Notification :", data);
 
-    socket.to(data.recieverId).emit("new_notification", notification);
+    socket.to(data.recieverId).emit("new_notification", data);
   });
 
   // get all notifications
