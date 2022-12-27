@@ -7,7 +7,6 @@ const chatMessageHandler = (socket) => {
   });
 
   socket.on("send_message", async (data) => {
-    console.log("Rooms are", socket.rooms);
     const user = await User.findById(data.userId);
 
     const chatRoomId = data.id;
@@ -20,6 +19,7 @@ const chatMessageHandler = (socket) => {
       messegeSent,
       idFromClient
     );
+    console.log("Messege :", messege);
     // // Return the messege to the client
     socket.emit("messege_sent", messege);
 
