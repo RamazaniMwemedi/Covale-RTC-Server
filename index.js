@@ -41,5 +41,5 @@ notificationNameSpace.on("connection", async (socket) => {
 
 instrument(io, {
   auth: false,
-  mode: "development",
+  mode: "production",
 });
