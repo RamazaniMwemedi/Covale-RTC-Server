@@ -9,9 +9,9 @@ const teamMessageHandler = (socket) => {
   });
 
   socket.on("send_message_to_team", async (data) => {
+    console.log(data);
     let message = {};
     const Sender = await User.findById(data.userId);
-
     const teamRoomId = data.id;
     const messegeSent = data.teamNewMessage.message;
     const idFromClient = data.teamNewMessage.idFromClient;
@@ -38,18 +38,10 @@ const teamMessageHandler = (socket) => {
       teamRoom: messageFromDB.teamRoom,
       sentAt: messageFromDB.sentAt,
     };
-    console.log("Messege from DB");
-    console.log(message);
     // // Return the messege to the client
     socket.emit("messege_sent_to_team", message);
 
     socket.to(data.id).emit("receive_message_to_team", message);
-  });
-  // New messege
-  socket.on("new_message_to_team", (data) => {
-    console.log("New Messege");
-    console.log(data);
-    socket.to(data.id).emit("receive_message_to_team", data);
   });
 };
 
