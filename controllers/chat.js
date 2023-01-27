@@ -1,7 +1,6 @@
-
-
 const chatMessageHandler = (socket) => {
   socket.on("join_room", async (data) => {
+    console.log("Joined Chat Room ID", data);
     socket.join(data);
   });
 
