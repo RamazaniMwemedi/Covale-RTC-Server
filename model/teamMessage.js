@@ -9,7 +9,7 @@ mongoose
   .catch((err) => {
     console.log("Error connecting to MongoDB: ", err);
   });
-// 
+//
 const teamMessageSchema = mongoose.Schema({
   sender: {
     type: mongoose.Schema.Types.ObjectId,
@@ -21,7 +21,6 @@ const teamMessageSchema = mongoose.Schema({
   },
   message: {
     type: String,
-    required: true,
   },
   videos: [
     {
