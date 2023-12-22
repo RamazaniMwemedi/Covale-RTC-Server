@@ -4,11 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "build:ui": "rm -rf build && cd ../part02/parts/ && npm run build && xcopy -r build ../../backend",
     "deploy": "git push heroku master",
     "deploy:full": "git add . && git commit -m'Deploy' && git push && npm run deploy",
-    "logs:prod": "heroku logs --tail"
+    "logs": "heroku logs --tail",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit",
+    "lint": "eslint"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.241.0",
