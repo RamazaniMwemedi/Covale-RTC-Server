@@ -1,15 +1,15 @@
 require("dotenv").config();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5055;
 const getDBURI = (envMode) => {
   switch (envMode) {
     case "development":
-      return process.env.DEV_MONGODB_URI;
+      return process.env.MONGODB_URI;
     case "production":
       return process.env.DEV_MONGODB_URI;
 
     case "test":
-      return process.env.DEV_MONGODB_URI;
+      return process.env.TEST_MONGODB_URI;
     default:
       return process.env.DEV_MONGODB_URI;
   }
